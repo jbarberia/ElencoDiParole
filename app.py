@@ -20,7 +20,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 # Intialize DB (TODO: work with a CSV file)
 WORDS = []
-with open("glossario.csv", "r", encoding='utf-8') as f:
+with open("data/glossario.csv", "r", encoding='utf-8') as f:
     header = [h.strip() for h in f.readline().split(';')]
     reader = csv.reader(f, delimiter=";")
     for row in reader:
@@ -31,7 +31,6 @@ with open("glossario.csv", "r", encoding='utf-8') as f:
         entry[header[2]] = values[2]
         
         WORDS.append(entry)
-print(WORDS)
 
 # Write to main page
 @app.route("/")
