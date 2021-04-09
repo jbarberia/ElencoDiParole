@@ -37,6 +37,11 @@
 
 <script>
 var myArray = JSON.parse('{{ words | tojson}}')
+myArray.sort(function(a, b) {
+    var textA = a.it.toUpperCase();
+    var textB = b.it.toUpperCase();
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+});
 
 $('#search').on('keyup', function(){
     var value = $(this).val()
