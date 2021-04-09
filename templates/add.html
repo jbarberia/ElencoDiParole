@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<form action="/add" method="post">
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="it" placeholder="Italiano" type="text">
+    </div>
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="es" placeholder="Español" type="text">
+    </div>
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="desc" placeholder="Descripción" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Añadir</button>
+</form>
+{% endblock %}

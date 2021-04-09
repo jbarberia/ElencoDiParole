@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block main %}
+
+<div class="text-center text-muted">
+    <input autocomplete="off" autofocus  class="form-control" id='search' placeholder="Busqueda . . ." type="text">
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align: center">Italiano</th>
+                <th style="text-align: center">Español</th>
+                <th style="text-align: center">Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody id="table"></tbody>
+        
+        <!--
+        <tbody>
+            {% for word in words %}
+            <tr>
+                <td style="text-align: center">{{ word["it"] }}</td>
+                <td style="text-align: center">{{ word["es"] }}</td>
+                <td style="text-align: center">{{ word["desc"] }}</td>
+            <tr>
+            {% endfor %}
+        </tbody>
+        -->
+    </table>      
+</div>
+
+<script>
+var myArray = JSON.parse('{{ words | tojson}}')
+
+$('#search').on('keyup', function(){
+    var value = $(this).val()
+    console.log('Value:', value)
+    var data = searchTable(value, myArray)
+    buildTable(data)
+})
+
+buildTable(myArray)
+
+function searchTable(value, data){
+    var filtered_data = []
+
+    for (var i = 0; i < data.length; i++){
+        value = value.toLowerCase()
+        var es = data[i].es.toLowerCase()
+        var it = data[i].it.toLowerCase()
+
+        if (es.includes(value) || it.includes(value)){
+            filtered_data.push(data[i])
+        }
+    }
+    return filtered_data
+}
+
+function buildTable(data){
+    var table = document.getElementById('table')
+    table.innerHTML = ''
+    for (var i = 0; i < data.length; i++){
+        var row =  `<tr>
+            <td>${data[i].it}</td>
+            <td>${data[i].es}</td>
+            <td>${data[i].desc}</td>
+            </tr>`
+            table.innerHTML += row
+        }
+    }
+</script>
+
+
+{% endblock %}
