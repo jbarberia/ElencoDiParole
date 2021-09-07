@@ -85,8 +85,26 @@ def remove():
         else:
             i = int(i)
 
+        # Remover Palabra
         es, it = WORDS[i]['es'], WORDS[i]['it']
         WORDS.pop(i)
+
+        # Quitarla del CSV
+        lines = []
+        with open("data/glossario.csv", "r") as f:
+            for i, line in enumerate(f.readlines()):
+                it_f, es_f = line.split(";")[:2]
+                
+                es_f = es_f.strip()
+                it_f = it_f.strip()
+
+                if not (es_f == es and it_f == it):
+                    lines.append(line)
+
+        with open("data/glossario.csv", "w") as f:
+            for line in lines:
+                f.write(line)
+
 
         flash(f"Palabra Removida: {es}({it})")
         return redirect("/")
