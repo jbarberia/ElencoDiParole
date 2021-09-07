@@ -65,6 +65,10 @@ def add():
         WORDS.append({'it': it, 'es':es, 'desc': desc})
         flash(f"Palabra añadida: {es}({it})")
 
+        # Sumar palabra al CSV
+        with open("data/glossario.csv", "a") as f:
+            f.write(f"\n{it}; {es}; {desc}")
+
         return redirect("/")
 
 
